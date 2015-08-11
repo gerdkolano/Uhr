@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="zahl_0_12">
+    <item>@raw/zahl00</item>
+    <item>@raw/zahl01</item>
+    <item>@raw/zahl02</item>
+    <item>@raw/zahl03</item>
+    <item>@raw/zahl04</item>
+    <item>@raw/zahl05</item>
+    <item>@raw/zahl06</item>
+    <item>@raw/zahl07</item>
+    <item>@raw/zahl08</item>
+    <item>@raw/zahl09</item>
+    <item>@raw/zahl10</item>
+    <item>@raw/zahl11</item>
+    <item>@raw/zahl12</item>
+  </string-array>
+  <string-array name="viertel">
+    <item>@raw/genau</item>
+    <item>@raw/viertel</item>
+    <item>@raw/halb</item>
+    <item>@raw/dreiviertel</item>
+  </string-array>
+
+  <string-array name="zahl_0_60">
+    <item>@raw/ab00</item>
+    <item>@raw/ab01</item>
+    <item>@raw/ab02</item>
+    <item>@raw/ab03</item>
+    <item>@raw/ab04</item>
+    <item>@raw/ab05</item>
+    <item>@raw/ab06</item>
+    <item>@raw/ab07</item>
+    <item>@raw/ab08</item>
+    <item>@raw/ab09</item>
+    <item>@raw/ab10</item>
+    <item>@raw/ab11</item>
+    <item>@raw/ab12</item>
+    <item>@raw/ab13</item>
+    <item>@raw/ab14</item>
+    <item>@raw/ab15</item>
+    <item>@raw/ab16</item>
+    <item>@raw/ab17</item>
+    <item>@raw/ab18</item>
+    <item>@raw/ab19</item>
+    <item>@raw/ab20</item>
+    <item>@raw/ab21</item>
+    <item>@raw/ab22</item>
+    <item>@raw/ab23</item>
+    <item>@raw/ab24</item>
+    <item>@raw/ab25</item>
+    <item>@raw/ab26</item>
+    <item>@raw/ab27</item>
+    <item>@raw/ab28</item>
+    <item>@raw/ab29</item>
+    <item>@raw/ab30</item>
+    <item>@raw/ab31</item>
+    <item>@raw/ab32</item>
+    <item>@raw/ab33</item>
+    <item>@raw/ab34</item>
+    <item>@raw/ab35</item>
+    <item>@raw/ab36</item>
+    <item>@raw/ab37</item>
+    <item>@raw/ab38</item>
+    <item>@raw/ab39</item>
+    <item>@raw/ab40</item>
+    <item>@raw/ab41</item>
+    <item>@raw/ab42</item>
+    <item>@raw/ab43</item>
+    <item>@raw/ab44</item>
+    <item>@raw/ab45</item>
+    <item>@raw/ab46</item>
+    <item>@raw/ab47</item>
+    <item>@raw/ab48</item>
+    <item>@raw/ab49</item>
+    <item>@raw/ab50</item>
+    <item>@raw/ab51</item>
+    <item>@raw/ab52</item>
+    <item>@raw/ab53</item>
+    <item>@raw/ab54</item>
+    <item>@raw/ab55</item>
+    <item>@raw/ab56</item>
+    <item>@raw/ab57</item>
+    <item>@raw/ab58</item>
+    <item>@raw/ab59</item>
+    <item>@raw/ab60</item>
+    <item>@raw/ab61</item>
+    <item>@raw/ab62</item>
+    <item>@raw/ab63</item>
+    <item>@raw/ab64</item>
+    <item>@raw/ab65</item>
+    <item>@raw/ab66</item>
+  </string-array>
+
+
+</resources>

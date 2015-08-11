@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                tools:context="${packageName}.${activityClass}">
+
+  <GridLayout
+    android:id="@+id/GridLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:columnCount="2"
+    android:rowCount="4"
+    android:orientation="horizontal"
+    android:layout_margin="12dp"
+    tools:context=".GridXMLActivity" >
+
+    <TextView
+      android:id="@+id/textMinute"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/sagJedeMinute"
+      android:textSize="20sp"
+      />
+
+    <Button
+      android:id="@+id/jedeMinute"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/lieberNichtJedeMinute"
+      android:layout_margin="12dp"
+      />
+
+    <TextView
+      android:id="@+id/textViertel"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content"
+      android:background="#ffffffde"
+      android:text="@string/sagNichtJedeViertelstunde"
+      android:textColor="#ff0e0e74"
+      android:textSize="20sp"
+      android:layout_margin="12dp"
+      />
+
+    <Button
+      android:id="@+id/jedeViertelstunde"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="#ffecff71"
+      android:text="@string/dochJedeViertelstunde"
+      android:textColor="#ff0000ff"
+      android:layout_margin="12dp"
+      />
+
+    <TextView
+      android:id="@+id/textKuckuck"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/mitKuckuck"
+      android:textSize="20sp"
+      android:layout_margin="12dp"
+      />
+
+    <Button
+      android:id="@+id/kuckuck"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/mitKuckuck"
+      android:layout_margin="12dp"
+      />
+
+  </GridLayout>
+
+  <TextView
+    android:id="@+id/textInfo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/einDatum"
+    android:textSize="20sp"
+    android:layout_below="@+id/GridLayout1"
+    android:layout_margin="12dp"
+    android:layout_centerHorizontal="true"
+    />
+
+
+  <Button
+    android:id="@+id/einMal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/textInfo"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="24dp"
+    android:text="@string/sagDieZeitEinmal"
+    />
+
+</RelativeLayout>
