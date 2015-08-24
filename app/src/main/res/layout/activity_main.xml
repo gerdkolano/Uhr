@@ -62,7 +62,7 @@
       />
 
     <Button
-      android:id="@+id/kuckuck"
+      android:id="@+id/mitKuckuck"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/mitKuckuck"
@@ -72,24 +72,84 @@
   </GridLayout>
 
   <TextView
-    android:id="@+id/textInfo"
+    android:id="@+id/zeitKomplett"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/einDatum"
-    android:textSize="20sp"
+    android:textSize="10sp"
     android:layout_below="@+id/GridLayout1"
-    android:layout_margin="12dp"
+    android:layout_margin="4dp"
     android:layout_centerHorizontal="true"
     />
 
-
-  <Button
-    android:id="@+id/einMal"
+  <TextView
+    android:id="@+id/inWorten"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/textInfo"
+    android:text="Montag 24. August 2015 35.Woche"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:layout_below="@+id/zeitKomplett"
+    android:layout_margin="1dp"
     android:layout_centerHorizontal="true"
-    android:layout_marginTop="24dp"
+    />
+
+  <TextView
+    android:id="@+id/heute"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="2015-08-24"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:layout_below="@+id/inWorten"
+    android:layout_margin="1dp"
+    android:layout_centerHorizontal="true"
+    />
+
+  <TextView
+    android:id="@+id/stunde"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="13:44:21"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:layout_below="@+id/heute"
+    android:layout_margin="1dp"
+    android:layout_centerHorizontal="true"
+    />
+
+  <TextView
+    android:id="@+id/zeitzone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="MEZ Sommer oder Winter"
+    android:textStyle="bold|italic"
+    android:textSize="20sp"
+    android:layout_below="@+id/stunde"
+    android:layout_margin="1dp"
+    android:layout_centerHorizontal="true"
+    />
+
+  <TextView
+    android:id="@+id/einstellungen"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Was wird angesagt\nZeile2\ngesagt3"
+    android:textStyle="bold"
+    android:fontFamily="sans-serif"
+    android:textSize="10sp"
+    android:layout_below="@+id/zeitzone"
+    android:layout_margin="1dp"
+    android:layout_centerHorizontal="true"
+    />
+
+  <Button
+    android:id="@+id/nurEinMal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/einstellungen"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="2dp"
     android:text="@string/sagDieZeitEinmal"
     />
 

@@ -16,7 +16,6 @@
 * */
 package net.za.dyndns.gerd.uhr;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +28,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -49,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
   private boolean einMal = false;
   private Button tast1;
   private Button tast2;
-  private Button tast3;
   private Button tast4;
+  private Button tast3;
 
 
   @Override
@@ -60,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
     // enables the activity icon as a 'home' button.
     // required if "android:targetSdkVersion" > 14
-        // getActionBar geht in Version 1.1 unter android-22 nicht
-        getSupportActionBar().setHomeButtonEnabled(true);
+    // getActionBar geht in Version 1.1 unter android-22 nicht
+    getSupportActionBar().setHomeButtonEnabled(true);
 
     String versionName = "";
     int versionCode = 0;
@@ -73,29 +71,53 @@ public class MainActivity extends AppCompatActivity {
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
     }
-
+    String anzeige;
+    /*
     Date nun = new Date();
     SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
     String anzeige = "Zeitansage "
-        + versionName
-        //+ versionCode
-        + " von "
-        + ft.format(nun);
+      + versionName
+      //+ versionCode
+      + " von "
+      + ft.format(nun);
+    */
+    anzeige = "Uhr mit Ansage "
+      + versionName
+      //+ versionCode
+      + " von "
+      + new Version().buildZeit;
     getSupportActionBar().setTitle(anzeige);
-    Log.e("U000---------------", anzeige);
+    Log.e("U000", String.format("-\n%s", anzeige));
 
     setContentView(R.layout.activity_main); // für findViewById
     tast1 = (Button) findViewById(R.id.jedeMinute);
     tast2 = (Button) findViewById(R.id.jedeViertelstunde);
-    tast3 = (Button) findViewById(R.id.einMal);
-    tast4 = (Button) findViewById(R.id.kuckuck);
+    tast3 = (Button) findViewById(R.id.mitKuckuck);
+    tast4 = (Button) findViewById(R.id.nurEinMal);
     TextView textViertel = (TextView) findViewById(R.id.textViertel);
-    TextView textInfo = (TextView) findViewById(R.id.textInfo);
+    TextView zeitKomplettView = (TextView) findViewById(R.id.zeitKomplett);
+    TextView inWortenView = (TextView) findViewById(R.id.inWorten);
     //WebView textWeb = (WebView) findViewById(R.id.textWeb);
     TextView textMinute = (TextView) findViewById(R.id.textMinute);
     TextView textKuckuck = (TextView) findViewById(R.id.textKuckuck);
+    TextView heuteView = (TextView) findViewById(R.id.heute);
+    TextView stundeView = (TextView) findViewById(R.id.stunde);
+    TextView zeitzoneView = (TextView) findViewById(R.id.zeitzone);
+    TextView einstellungenView = (TextView) findViewById(R.id.einstellungen);
+    TextView xx = (TextView) findViewById(R.id.zeitzone);
+    TextView yy = (TextView) findViewById(R.id.zeitzone);
 
-    ansager = new Ansager(this, textInfo, textViertel, textMinute, textKuckuck); //, textWeb);
+    ansager = new Ansager(this,
+      zeitKomplettView,
+      heuteView,
+      stundeView,
+      zeitzoneView,
+      einstellungenView,
+      inWortenView,
+      textViertel,
+      textMinute,
+      textKuckuck
+    ); //, textWeb);
 
   }
 
@@ -120,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
     super.onStop();
   }
 
-  boolean leise=false, laut=true;
+  boolean leise = false, laut = true;
+
   @Override
   protected void onStart() {
     super.onStart();
@@ -132,58 +155,74 @@ public class MainActivity extends AppCompatActivity {
     receiver = new Empfänger();
     this.registerReceiver(receiver, filter);
 
-    toggle(tast1, jedeMinute, R.string.doch, R.string.lieberNicht);
+    toggle(tast1, jedeMinute, DochOderNicht.DOCH, DochOderNicht.NICHT);
     tast1.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            jedeMinute = !jedeMinute;
-            ansager.zeigeZeit(leise, einMal, jedeMinute, jedeViertelstunde, kuckuckUndGong);
-            toggle(tast1, jedeMinute, R.string.doch, R.string.lieberNicht);
-          }
+      new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          jedeMinute = !jedeMinute;
+          ansager.zeigeZeit(leise, einMal, jedeMinute, jedeViertelstunde, kuckuckUndGong);
+          toggle(tast1, jedeMinute, DochOderNicht.DOCH, DochOderNicht.NICHT);
         }
+      }
     );
 
-    toggle(tast2, jedeViertelstunde, R.string.doch, R.string.lieberNicht);
+    toggle(tast2, jedeViertelstunde, DochOderNicht.DOCH, DochOderNicht.NICHT);
     tast2.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            jedeViertelstunde = !jedeViertelstunde;
-            ansager.zeigeZeit(leise, einMal, jedeMinute, jedeViertelstunde, kuckuckUndGong);
-            toggle(tast2, jedeViertelstunde, R.string.doch, R.string.lieberNicht);
-          }
+      new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          jedeViertelstunde = !jedeViertelstunde;
+          ansager.zeigeZeit(leise, einMal, jedeMinute, jedeViertelstunde, kuckuckUndGong);
+          toggle(tast2, jedeViertelstunde, DochOderNicht.DOCH, DochOderNicht.NICHT);
         }
+      }
     );
 
-    tast3.setText(R.string.sagDieZeitEinmal);
-    tast3.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            ansager.zeigeZeit(laut, true, jedeMinute, jedeViertelstunde, kuckuckUndGong);
-          }
-        }
-    );
-    toggle(tast4, kuckuckUndGong, R.string.doch, R.string.lieberNicht);
+    tast4.setText(R.string.sagDieZeitEinmal);
     tast4.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            kuckuckUndGong = !kuckuckUndGong;
-            ansager.zeigeZeit(leise, einMal, jedeMinute, jedeViertelstunde, kuckuckUndGong);
-            toggle(tast4, kuckuckUndGong, R.string.doch, R.string.lieberNicht);
-          }
+      new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          ansager.zeigeZeit(laut, true, jedeMinute, jedeViertelstunde, kuckuckUndGong);
         }
+      }
+    );
+    toggle(tast3, kuckuckUndGong, DochOderNicht.DOCH, DochOderNicht.NICHT);
+    tast3.setOnClickListener(
+      new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          kuckuckUndGong = !kuckuckUndGong;
+          ansager.zeigeZeit(leise, einMal, jedeMinute, jedeViertelstunde, kuckuckUndGong);
+          toggle(tast3, kuckuckUndGong, DochOderNicht.DOCH, DochOderNicht.NICHT);
+        }
+      }
     );
 
   }
-  void toggle(Button taste, boolean kriterium, int wennJa, int wennNein) {
-            if (kriterium)
-              taste.setText(wennNein);
-            else
-              taste.setText(wennJa);
+
+  void togg(Button taste, boolean kriterium, int wennJa, int wennNein) {
+    if (kriterium)
+      taste.setText(wennNein);
+    else
+      taste.setText(wennJa);
   }
+
+  void toggle(Button taste, boolean kriterium, DochOderNicht wennJa, DochOderNicht wennNein) {
+    if (kriterium)
+      taste.setText(translate(wennNein));
+    else
+      taste.setText(translate(wennJa));
+  }
+
+  int translate(DochOderNicht wennJa) {
+    if (wennJa == DochOderNicht.DOCH) {
+      return R.string.doch;
+    }
+    return R.string.lieberNicht;
+  }
+
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
 

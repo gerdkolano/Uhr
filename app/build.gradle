@@ -1,23 +1,56 @@
 apply plugin: 'com.android.application'
 
+// beobachte in Gradle Console
+exec {
+    executable 'date'
+    args '+hanno build.gradle Datum %Y-%m-%d %H.%M.%S'
+}
+
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
-
     def Properties versionProps = new Properties()
-    def versionPropsFile = file('version.properties')
+    def versionPropsFile = file('hanno-version.properties')
     if (versionPropsFile.exists())
         versionProps.load(new FileInputStream(versionPropsFile))
-    def code = (versionProps['VERSION_CODE'] ?: "0").toInteger() + 1
-    versionProps['VERSION_CODE'] = code.toString()
+    def code = (versionProps['hanno_VERSION_CODE'] ?: "0").toInteger() + 1
+    versionProps['hanno_VERSION_CODE'] = code.toString()
     versionProps.store(versionPropsFile.newWriter(), null)
+    def hannoVersionName = "1.1"
+
+    def hannoVersionFile = file('src/main/java/net/za/dyndns/gerd/uhr/Version.java')
+    def inhalt = 'package net.za.dyndns.gerd.uhr;\n'
+    inhalt += ' public class Version {\n'
+    inhalt += '  public String buildZeit = "'
+    inhalt += new Date().format('yyyy-MM-dd HH.mm.ss')
+    inhalt += '";\n}\n'
+    hannoVersionFile.write(inhalt)
+
+    println 'hanno Version Name und Code ' + hannoVersionName + " " + code.toString()
+
+    project.afterEvaluate {
+        println 'hanno Version und Code ' + hannoVersionName + " " + code.toString()
+        def drucke = println(new Date().format('yyyy-MM-dd-HH.mm.ss'))
+        drucke
+        def date = new Date()
+        println date.format('yyMMddHHmm').toLong()
+
+        exec {
+            executable 'date'
+            args '+hanno %Y-%m-%d %H.%M.%S'
+        }
+        exec {
+            executable 'bash'
+            args 'mach-launcher.bash', 'Uhr', hannoVersionName, code.toString()
+        }
+    }
 
     defaultConfig {
         applicationId "net.za.dyndns.gerd.uhr"
         minSdkVersion 17
         targetSdkVersion 22
         versionCode 1
-        versionName "1.1" + code
+        versionName hannoVersionName + "." + code
     }
     buildTypes {
         release {

@@ -20,20 +20,38 @@ public class Ansager {
   private int[] R_array_viertel;
   private int[] R_array_0_12;
   private Context context;
-  private TextView textInfo;
+  private TextView zeitKomplettView;
+  private TextView inWortenView;
+  private TextView heuteView;
+  private TextView stundeView;
+  private TextView zeitzoneView;
+  private TextView einstellungenView;
   private TextView textViertel;
   private TextView textMinute;
   private TextView textKuckuck;
-  private WebView webview;
   int debug = 1;
 
-  Ansager(Context context, TextView textInfo, TextView textViertel, TextView textMinute, TextView textKuckuck) { // }, WebView webview) {
+  Ansager(Context context,
+          TextView zeitKomplettView,
+          TextView heuteView,
+          TextView stundeView,
+          TextView zeitzoneView,
+          TextView einstellungenView,
+          TextView inWortenView,
+          TextView textViertel,
+          TextView textMinute,
+          TextView textKuckuck
+  ) { // }, WebView webview) {
     this.context = context;
-    this.textInfo = textInfo;
+    this.zeitKomplettView = zeitKomplettView;
+    this.inWortenView = inWortenView;
+    this.heuteView = heuteView;
+    this.stundeView = stundeView;
+    this.zeitzoneView = zeitzoneView;
+    this.einstellungenView = einstellungenView;
     this.textViertel = textViertel;
     this.textMinute = textMinute;
     this.textKuckuck = textKuckuck;
-    this.webview = webview;
     // Lade die Tonaufnahmen für die Ansagen
     R_array_0_60 = holeArray(R.array.zahl_0_60);
     R_array_0_12 = holeArray(R.array.zahl_0_12);
@@ -66,41 +84,68 @@ public class Ansager {
 
     Date nun = new Date();
     SimpleDateFormat yyyy_MM_dd_HH_mm_ss_SSSZ = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
-    String zeitwort = yyyy_MM_dd_HH_mm_ss_SSSZ.format(nun);
-zeitwort = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ").format(nun);
+    String zeitKomplett;
+    zeitKomplett = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ").format(nun);
     String heute = new SimpleDateFormat("yyyy-MM-dd").format(nun);
     String jetzt = new SimpleDateFormat("HH:mm:ss").format(nun);
     String zeitzone = new SimpleDateFormat("zzzz").format(nun);
-    if (debug > 1) Log.i("U010", String.format("Tick %s", zeitwort));
-    Toast.makeText(context, zeitwort, Toast.LENGTH_LONG).show();
+    String wochentagsname = new SimpleDateFormat("EEEE").format(nun);
+    String monatsname = new SimpleDateFormat("MMMM").format(nun);
+    if (debug > 1) Log.i("U010", String.format("Tick %s", zeitKomplett));
+    Toast.makeText(context, zeitKomplett, Toast.LENGTH_LONG).show();
 
     textMinute.setText(
-        jedeMinute
-            ? context.getString(R.string.sagJedeMinute)
-            : context.getString(R.string.sagNichtJedeMinute)
+      jedeMinute
+        ? context.getString(R.string.sagJedeMinute)
+        : context.getString(R.string.sagNichtJedeMinute)
     );
     textViertel.setText(
-        jedeViertelstunde
-            ? context.getString(R.string.sagJedeViertelstunde)
-            : context.getString(R.string.sagNichtJedeViertelstunde)
+      jedeViertelstunde
+        ? context.getString(R.string.sagJedeViertelstunde)
+        : context.getString(R.string.sagNichtJedeViertelstunde)
     );
     textKuckuck.setText(
-        kuckuckUndGong
-            ? context.getString(R.string.mitKuckuck)
-            : context.getString(R.string.ohneKuckuck)
+      kuckuckUndGong
+        ? context.getString(R.string.mitKuckuck)
+        : context.getString(R.string.ohneKuckuck)
     );
-    textInfo.setText("");
-    textInfo.append(Html.fromHtml(String.format(
-        "<h2>%s</h2><h3>%s</h3><h3>%s</h3><h3>%s</h3><h3>%s</h3><br />",
-        "Zeitansage", zeitwort, heute, jetzt, zeitzone
+    /*
+    inWortenView.setText("");
+    inWortenView.append(Html.fromHtml(String.format(
+      "<h2>%s</h2><h3>%s</h3><h3>%s</h3><h3>%s</h3><h3>%s</h3><br />",
+      "Zeitansage", zeitKomplett, heute, jetzt, zeitzone
     )));
-    textInfo.append(String.format("%s\n%s\n%s\n",
-        jedeMinute ? context.getString(R.string.sagJedeMinute) : context.getString(R.string.sagNichtJedeMinute),
-        jedeViertelstunde ? context.getString(R.string.sagJedeViertelstunde) : context.getString(R.string.sagNichtJedeViertelstunde),
-        kuckuckUndGong ? context.getString(R.string.mitKuckuck) : context.getString(R.string.ohneKuckuck)
+    inWortenView.append(String.format("%s\n%s\n%s\n",
+      jedeMinute ? context.getString(R.string.sagJedeMinute) : context.getString(R.string.sagNichtJedeMinute),
+      jedeViertelstunde ? context.getString(R.string.sagJedeViertelstunde) : context.getString(R.string.sagNichtJedeViertelstunde),
+      kuckuckUndGong ? context.getString(R.string.mitKuckuck) : context.getString(R.string.ohneKuckuck)
     ));
 
-    Integer minute = new Integer(new SimpleDateFormat("m").format(nun));
+    heuteView.setText(Html.fromHtml(String.format("<h3>%s</h3>", heute)));
+    stundeView.setText(Html.fromHtml(String.format("<h3>%s</h3>", jetzt)));
+    zeitzoneView.setText(Html.fromHtml(String.format("<h3>%s</h3>", zeitzone)));
+    */
+
+    int tagesnummer = Integer.valueOf(new SimpleDateFormat("d").format(nun));
+    int wochennummer = Integer.valueOf(new SimpleDateFormat("w").format(nun));
+    zeitKomplettView.setText(String.format("%s", zeitKomplett));
+    heuteView.setText(String.format("%s", heute));
+    inWortenView.setText(String.format("%s %s.%s %d.Woche", wochentagsname, tagesnummer, monatsname, wochennummer));
+    stundeView.setText(String.format("%s", jetzt));
+    zeitzoneView.setText(String.format("%s", zeitzone));
+    einstellungenView.setText(String.format("%s\n%s\n%s\n",
+      jedeMinute
+        ? context.getString(R.string.sagJedeMinute)
+        : context.getString(R.string.sagNichtJedeMinute),
+      jedeViertelstunde
+        ? context.getString(R.string.sagJedeViertelstunde)
+        : context.getString(R.string.sagNichtJedeViertelstunde),
+      kuckuckUndGong
+        ? context.getString(R.string.mitKuckuck)
+        : context.getString(R.string.ohneKuckuck)
+    ));
+
+    int minute = Integer.parseInt(new SimpleDateFormat("m").format(nun));
 
     Integer std_1_12 = new Integer(new SimpleDateFormat("h").format(nun));
     Integer std_0_23 = new Integer(new SimpleDateFormat("H").format(nun));
@@ -122,32 +167,32 @@ zeitwort = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ").format(nun);
     *
     * */
     int nächste_stunde = (std_1_12 + (minute + 45) / 60); // % 12;
-    
+
     //if (nächste_stunde == 0) nächste_stunde = 12;
+    if (nächste_stunde == 13) nächste_stunde = 1;
 
     int kuckucksrufe = ((viertel_0_3 + 3) % 4) + 1;
 
     //Log.i("U020", String.format("std_1_12 %x Viertel %x", R_array_0_12[std_1_12], R_array_viertel[viertel_0_3]));
     Log.i("U020", String.format(
-        "%02d:%02d:%02d std12=%d nächste=%d viertel_0_3=%d kuckuck=%d",
-        std_0_23, minute, sekunde, std_1_12, nächste_stunde, viertel_0_3, kuckucksrufe));
+      "%02d:%02d:%02d std12=%d nächste=%d viertel_0_3=%d kuckuck=%d",
+      std_0_23, minute, sekunde, std_1_12, nächste_stunde, viertel_0_3, kuckucksrufe));
 
     String anzeige
-        = (einMal ? "einMal" : "mehrmals") + " "
-        + (laut ? "laut" : "leise") + " "
-        + (jedeMinute ? "minuteJa" : "minuteNein") + " "
-        + (jedeViertelstunde ? "viertelJa" : "viertelNein") + " "
-        + (kuckuckUndGong ? "kuckuckJa" : "KuckuckNein");
+      = (einMal ? "einMal" : "mehrmals") + " "
+      + (laut ? "laut" : "leise") + " "
+      + (jedeMinute ? "minuteJa" : "minuteNein") + " "
+      + (jedeViertelstunde ? "viertelJa" : "viertelNein") + " "
+      + (kuckuckUndGong ? "kuckuckJa" : "KuckuckNein");
 
     Log.i("U023", "Was tun ? " + anzeige);
 
     if (!laut) return;
 
-    if ((einMal || jedeMinute || (minute % 15 == 0))) {
-    } else {
+    if ((!einMal && !jedeMinute && (minute % 15 != 0))) {
       return;
     }
-    ArrayList<Integer> liste = new ArrayList<Integer>();
+    ArrayList<Integer> liste = new ArrayList<>();
     if (jedeMinute) {
       liste.add(R_array_0_60[std_0_23]);
       liste.add(R_array_0_60[61]);
